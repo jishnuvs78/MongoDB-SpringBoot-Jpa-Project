@@ -12,18 +12,50 @@ public class Summary {
 	private String messageType;
 	private String fraudStatus;
 	private String eventId;
-	
+	private String fraudFlag;
+	private String sanctionsFlag;
+	private String finalFlag;
+
 	public Summary() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Summary(String id, String messageType, String fraudStatus, String eventId) {
+	public Summary(String id, String messageType, String fraudStatus, String eventId, String fraudFlag,
+			String sanctionsFlag, String finalFlag) {
 		super();
 		this.id = id;
 		this.messageType = messageType;
 		this.fraudStatus = fraudStatus;
 		this.eventId = eventId;
+		this.fraudFlag = fraudFlag;
+		this.sanctionsFlag = sanctionsFlag;
+		this.finalFlag = finalFlag;
+	}
+
+
+	public String getFinalFlag() {
+		return finalFlag;
+	}
+
+	public void setFinalFlag(String finalFlag) {
+		this.finalFlag = finalFlag;
+	}
+
+	public String getSanctionsFlag() {
+		return sanctionsFlag;
+	}
+
+	public void setSanctionsFlag(String sanctionsFlag) {
+		this.sanctionsFlag = sanctionsFlag;
+	}
+
+	public String getFraudFlag() {
+		return fraudFlag;
+	}
+
+	public void setFraudFlag(String fraudFlag) {
+		this.fraudFlag = fraudFlag;
 	}
 
 	public String getId() {
@@ -61,7 +93,8 @@ public class Summary {
 	@Override
 	public String toString() {
 		return "Summary [id=" + id + ", messageType=" + messageType + ", fraudStatus=" + fraudStatus + ", eventId="
-				+ eventId + "]";
+				+ eventId + ", fraudFlag=" + fraudFlag + ", sanctionsFlag=" + sanctionsFlag + "]";
 	}
+
 
 }

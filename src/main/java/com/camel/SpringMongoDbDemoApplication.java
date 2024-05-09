@@ -1,17 +1,16 @@
 package com.camel;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.camel.model.MyDocument;
-import com.camel.service.MyDocumentService;
-
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+//@EnableAutoConfiguration
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@ComponentScan(basePackages = {"com.lib.camel.camelRoutesLibrary"})
 @EnableTransactionManagement
 public class SpringMongoDbDemoApplication {
 	

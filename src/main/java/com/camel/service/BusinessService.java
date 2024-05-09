@@ -29,7 +29,8 @@ public class BusinessService {
 			String summaryId=savedSummary.getId();
 			exchange.setSummaryId(summaryId);
 			Exchange savedExchange=exchangeRepository.save(exchange);
-			return "Records Inserted";
+			return summaryId;
+//			throw new Exception("Failed to Insert to DB: "+summaryId);
 		}catch(Exception e) {
 			throw new RuntimeException("Failed to Insert to DB: " + e.getMessage(), e);
 		}

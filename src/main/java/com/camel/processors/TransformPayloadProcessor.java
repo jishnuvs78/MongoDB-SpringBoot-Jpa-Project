@@ -14,18 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.camel.model.Message;
 import com.camel.service.ExchangeService;
+import com.camel.service.SummaryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TransformPayloadProcessor implements Processor {
 	
-	private final ExchangeService exchangeService;
 	
-	@Autowired
+	private ExchangeService exchangeService; 
+	
 	public TransformPayloadProcessor(ExchangeService exchangeService) {
 		this.exchangeService=exchangeService;
-	} 
+	}
 	
-	private void stringToJson(String xml,String recordId) {
+	private void stringToJson(String xml,String recordId,Exchange exchange) {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
 			
@@ -47,6 +48,8 @@ public class TransformPayloadProcessor implements Processor {
 				newExchange.setStgId("2");
 				newExchange.setPayload(jsonPayload);
 				
+				exchange.setProperty("payload", jsonPayload);
+				System.out.println(exchangeService);
 				String ot=exchangeService.insertExchange(newExchange);
 				System.out.println("Status: " + ot);
 				
@@ -62,14 +65,18 @@ public class TransformPayloadProcessor implements Processor {
 	@Override
 	public void process(Exchange exchange) throws Exception {
 		
-		String recordId=exchange.getIn().getBody(String.class);
-		System.out.println(recordId);
+//		String recordId=exchange.getIn().getBody(String.class);
+//		System.out.println(recordId);
 		
-		Optional<com.camel.model.Exchange> fetchedRecord=exchangeService.getExchangeBySummaryId(recordId);
-		fetchedRecord.ifPresentOrElse(
-				r-> stringToJson(r.getPayload(), recordId), 
-				()-> System.out.println("Record not found")
-				);
+//		Optional<com.camel.model.Exchange> fetchedRecord=exchangeService.getExchangeBySummaryId(recordId);
+//		fetchedRecord.ifPresentOrElse(
+//				r-> stringToJson(r.getPayload(), recordId), 
+//				()-> System.out.println("Record not found")
+//				);
+		
+		String summaryId=exchange.getProperty("summaryId",String.class);
+		stringToJson(exchange.getProperty("payload",String.class), summaryId,exchange);
+		
 		
 	}
 

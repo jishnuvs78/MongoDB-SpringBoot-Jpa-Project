@@ -13,19 +13,32 @@ public class Exchange {
 	private String stgId;
 	private String desc;
 	private String payload;
+	private String status;
+	
 	
 	public Exchange() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
-	public Exchange(String id, String summaryId, String stgId, String desc, String payload) {
+	public Exchange(String id, String summaryId, String stgId, String desc, String payload, String status) {
 		super();
 		Id = id;
 		this.summaryId = summaryId;
 		this.stgId = stgId;
 		this.desc = desc;
 		this.payload = payload;
+		this.status = status;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getId() {
@@ -68,11 +81,7 @@ public class Exchange {
 		this.payload = payload;
 	}
 
-	@Override
-	public String toString() {
-		return "Exchange [Id=" + Id + ", summaryId=" + summaryId + ", stgId=" + stgId + ", desc=" + desc + ", payload="
-				+ payload + "]";
-	}
+	
 	
 	
 
