@@ -32,7 +32,6 @@ import com.camel.service.BusinessService;
 import com.camel.service.ExchangeService;
 import com.camel.service.MyDocumentService;
 import com.camel.service.SummaryService;
-import com.lib.camel.camelRoutesLibrary.routes.TestRoute;
 
 @Component
 public class XmlToPayloadRoute extends RouteBuilder{

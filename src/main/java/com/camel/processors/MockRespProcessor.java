@@ -11,7 +11,7 @@ import com.camel.service.SummaryService;
 
 public class MockRespProcessor implements Processor {
 	
-	
+	@Autowired
 	private SummaryService summaryService;
 	
 	@Autowired

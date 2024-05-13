@@ -137,11 +137,7 @@
           <artifactId>activemq-pool</artifactId>
        </dependency>
        
-       <dependency>
-       	  <groupId>com.lib.camel</groupId>
-		  <artifactId>camelRoutesLibrary</artifactId>
-		  <version>0.0.1-SNAPSHOT</version>
-       </dependency>
+       
      </dependencies>
 
 	<build>

@@ -19,9 +19,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TransformPayloadProcessor implements Processor {
 	
-	
+	@Autowired
 	private ExchangeService exchangeService; 
 	
+	@Autowired
 	public TransformPayloadProcessor(ExchangeService exchangeService) {
 		this.exchangeService=exchangeService;
 	}

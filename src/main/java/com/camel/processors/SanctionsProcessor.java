@@ -9,9 +9,10 @@ import com.camel.service.SummaryService;
 
 public class SanctionsProcessor implements Processor {
 	
-	
+	@Autowired
 	private SummaryService summaryService;
 	
+	@Autowired
 	public SanctionsProcessor(SummaryService summaryService) {
 		this.summaryService=summaryService;
 	}

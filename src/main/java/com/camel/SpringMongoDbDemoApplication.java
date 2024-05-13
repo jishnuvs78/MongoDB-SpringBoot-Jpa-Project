@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 //@EnableAutoConfiguration
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-@ComponentScan(basePackages = {"com.lib.camel.camelRoutesLibrary"})
+//@ComponentScan(basePackages = {"com.lib.camel.camelRoutesLibrary"})
 @EnableTransactionManagement
 public class SpringMongoDbDemoApplication {
 	

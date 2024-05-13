@@ -14,9 +14,10 @@ import com.camel.service.SummaryService;
 
 public class SetPayloadProcessor implements Processor {
 	
-//	@Autowired
+	@Autowired
 	private BusinessService businessService;
 	
+	@Autowired
 	public SetPayloadProcessor(BusinessService businessService) {
 		this.businessService=businessService;
 	}

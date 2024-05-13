@@ -8,9 +8,10 @@ import com.camel.service.ExchangeService;
 
 public class StgIdProcessor implements Processor{
 	
-	
+	@Autowired
 	private ExchangeService exchangeService;
 	
+	@Autowired
 	public StgIdProcessor(ExchangeService exchangeService) {
 		this.exchangeService=exchangeService;
 	}
