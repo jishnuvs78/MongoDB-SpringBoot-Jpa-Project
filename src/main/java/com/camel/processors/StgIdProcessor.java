@@ -3,18 +3,20 @@ package com.camel.processors;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.camel.service.ExchangeService;
 
+@Component
 public class StgIdProcessor implements Processor{
 	
 	@Autowired
 	private ExchangeService exchangeService;
 	
-	@Autowired
-	public StgIdProcessor(ExchangeService exchangeService) {
-		this.exchangeService=exchangeService;
-	}
+//	@Autowired
+//	public StgIdProcessor(ExchangeService exchangeService) {
+//		this.exchangeService=exchangeService;
+//	}
 	
 	public void setStgId(String stgId,String status,String recordId,Exchange exchange) {
 		

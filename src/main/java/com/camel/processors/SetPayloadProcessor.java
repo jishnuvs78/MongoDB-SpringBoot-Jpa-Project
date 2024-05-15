@@ -3,6 +3,7 @@ package com.camel.processors;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.camel.model.MyDocument;
@@ -12,15 +13,16 @@ import com.camel.service.ExchangeService;
 import com.camel.service.MyDocumentService;
 import com.camel.service.SummaryService;
 
+@Component
 public class SetPayloadProcessor implements Processor {
 	
 	@Autowired
 	private BusinessService businessService;
 	
-	@Autowired
-	public SetPayloadProcessor(BusinessService businessService) {
-		this.businessService=businessService;
-	}
+//	@Autowired
+//	public SetPayloadProcessor(BusinessService businessService) {
+//		this.businessService=businessService;
+//	}
 	
 	public static class CustomNonRollbackException extends RuntimeException {
         public CustomNonRollbackException(String message) {

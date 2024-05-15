@@ -11,21 +11,23 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.camel.model.Message;
 import com.camel.service.ExchangeService;
 import com.camel.service.SummaryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Component
 public class TransformPayloadProcessor implements Processor {
 	
 	@Autowired
 	private ExchangeService exchangeService; 
 	
-	@Autowired
-	public TransformPayloadProcessor(ExchangeService exchangeService) {
-		this.exchangeService=exchangeService;
-	}
+//	@Autowired
+//	public TransformPayloadProcessor(ExchangeService exchangeService) {
+//		this.exchangeService=exchangeService;
+//	}
 	
 	private void stringToJson(String xml,String recordId,Exchange exchange) {
 		try {

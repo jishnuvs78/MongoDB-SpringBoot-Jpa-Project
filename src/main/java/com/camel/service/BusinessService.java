@@ -12,14 +12,17 @@ import com.camel.repository.SummaryRepository;
 @Service
 public class BusinessService {
 	
-	private final SummaryRepository summaryRepository;
-	private final ExchangeRepository exchangeRepository;
+	@Autowired
+	private SummaryRepository summaryRepository;
 	
 	@Autowired
-	public BusinessService(SummaryRepository summaryRepository,ExchangeRepository exchangeRepository) {
-		this.summaryRepository=summaryRepository;
-		this.exchangeRepository=exchangeRepository;
-	}
+	private ExchangeRepository exchangeRepository;
+	
+//	@Autowired
+//	public BusinessService(SummaryRepository summaryRepository,ExchangeRepository exchangeRepository) {
+//		this.summaryRepository=summaryRepository;
+//		this.exchangeRepository=exchangeRepository;
+//	}
 	
 	@Transactional
 	public String insertToSummaryAndExchange(Summary summary,Exchange exchange) {

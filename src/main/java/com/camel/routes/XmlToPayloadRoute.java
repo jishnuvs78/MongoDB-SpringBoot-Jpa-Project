@@ -44,13 +44,21 @@ public class XmlToPayloadRoute extends RouteBuilder{
 	
 	@Autowired
 	private SummaryService summaryService;
-
-//	@Autowired
-//	public XmlToPayloadRoute(SummaryService summaryService,ExchangeService exchangeService,BusinessService businessService) {
-//		this.summaryService=summaryService;
-//		this.exchangeService=exchangeService;
-//		this.businessService=businessService;
-//	}
+	
+	@Autowired
+	private SetPayloadProcessor setPayloadProcessor;
+	
+	@Autowired
+	private TransformPayloadProcessor transformPayloadProcessor;
+	
+	@Autowired
+	private StgIdProcessor stgIdProcessor;
+	
+	@Autowired
+	private SanctionsProcessor sanctionsProcessor;
+	
+	@Autowired
+	private MockRespProcessor mockRespProcessor;
 	
 	
 	@Override
@@ -64,39 +72,19 @@ public class XmlToPayloadRoute extends RouteBuilder{
 		sanctionsRoute();
 //		retryRoute();
 		sendToDest1();
-//		XmlToPayload();
 //		transformPayload();
-//		queueToDB();
 	}
-	
-	public void XmlToPayload() {
 		
-		from("file:input_box?noop=true")
-		.process(new XmlToPayloadProcessor())
-		.process(new SetPayloadProcessor(businessService));
-		
-	}
-	
 	public void transformPayload() {
 		
 		rest("/mufg")
         .post("/postTransform").to("direct:transformPayload");
 		
 		from("direct:transformPayload")
-		.process(new TransformPayloadProcessor(exchangeService));
+		.process(transformPayloadProcessor);
 		
 	}
-	
-	public void queueToDB() {
 		
-		from("activemq:queue:send_file")
-		.process(new QueueProcessor())
-		.process(new SetPayloadProcessor(businessService))
-		.process(new MsgToQueueProcessor())
-		.to("activemq:queue:get_file");
-		
-	}
-	
 	public void multiQueueRoute() {
 		
 		from("activemq:queue:source")
@@ -111,8 +99,8 @@ public class XmlToPayloadRoute extends RouteBuilder{
 		
 		from("direct:route1")
 		.process(new QueueProcessor())
-		.process(new SetPayloadProcessor(businessService))
-		.process(new TransformPayloadProcessor(exchangeService))
+		.process(setPayloadProcessor)
+		.process(transformPayloadProcessor)
 		.setHeader("CamelHttpMethod", constant("POST"))
         .setHeader("Content-Type", constant("application/json"))
         .process(ex->{
@@ -125,7 +113,7 @@ public class XmlToPayloadRoute extends RouteBuilder{
         	ex.setProperty("stgId", "3");
         	ex.setProperty("status", "Resp from Json Server Recieved");
         })
-        .process(new StgIdProcessor(exchangeService));
+        .process(stgIdProcessor);
 //		.doTry()
 //			.to("activemq:queue:dest1")
 //			.process(exchange->{
@@ -150,14 +138,14 @@ public class XmlToPayloadRoute extends RouteBuilder{
 			exchange.setProperty("stgId", "4");
 			exchange.setProperty("status", "Req sent to sanctions");
 		})
-		.process(new StgIdProcessor(exchangeService))
+		.process(stgIdProcessor)
 		.to("activemq:queue:valid")
 		.process(exchange->{
 			exchange.setProperty("stgId", "5");
 			exchange.setProperty("status", "Sanctions processed");
 		})
-		.process(new StgIdProcessor(exchangeService))
-		.process(new SanctionsProcessor(summaryService));
+		.process(stgIdProcessor)
+		.process(sanctionsProcessor);
 	}
 	
 	public void checkRespRoute() {
@@ -178,7 +166,7 @@ public class XmlToPayloadRoute extends RouteBuilder{
 	
 	public void mockRespRoute() {
 		from("activemq:queue:mock-queue")
-		.process(new MockRespProcessor(summaryService));
+		.process(mockRespProcessor);
 	}
 	
 	
